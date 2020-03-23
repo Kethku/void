@@ -14,12 +14,13 @@ name = "test"
 path = "test/test.rs"
 
 [features]
-default = []
+default = ["sdl2-static-link", "embed-fonts"]
+sdl2-static-link = ["skulpin/sdl2-static-link"]
+embed-fonts = []
 
 [dependencies]
 dirs = "1.0"
 clap = "2.0"
-termion = "1.1"
 log = "0.3"
 lazy_static = "0.2"
 time = "0.1"
@@ -32,6 +33,15 @@ regex = "1.1"
 unicode-segmentation = "0.1"
 clippy = { version = "0.0", optional = true }
 fs2 = "0.4.1"
+skulpin = { git = "https://github.com/Kethku/skulpin", branch = "sdl2" }
+skribo = { git = "https://github.com/linebender/skribo" }
+font-kit = "0.5.0"
+lru = "0.4.3"
+rust-embed = { version = "5.2.0", features = ["debug-embed"] }
+unicode-segmentation = "1.6.0"
+
+[target.'cfg(windows)'.dependencies]
+winapi = "0.3.8"
 
 [dev-dependencies]
 quickcheck = "0.3"

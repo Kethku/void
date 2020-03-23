@@ -9,8 +9,9 @@ use std::{
     process,
 };
 
+use crate::EDITOR;
 use termion::{
-    clear, color, cursor,
+    color, cursor,
     event::{Event, Key},
     input::{MouseTerminal, TermRead},
     raw::{IntoRawMode, RawTerminal},
@@ -121,7 +122,9 @@ impl Default for Screen {
 impl Screen {
     fn help(&mut self) {
         self.cleanup();
-        println!("{}{}{}", cursor::Goto(1, 1), clear::All, self.config);
+        println!("{}", self.config);
+        EDITOR.handle_redraw_event(RedrawEvent::CursorGoto { grid: 0, row: 1, column: 1 });
+        EDITOR.handle_redraw_event(RedrawEvent::Clear { grid: 0 });
         self.start_raw_mode();
         if self.single_key_prompt("").is_err() {
             // likely here because of testing
